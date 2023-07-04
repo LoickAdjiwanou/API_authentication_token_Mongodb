@@ -52,38 +52,38 @@ userSchema.pre('save', function (next) {
 const User = mongoose.model('User', userSchema);
 
 // Route pour créer un nouvel utilisateur
-app.post('/signup', (req, res) => {
+app.post('/signup', async (req, res) => {
   const { username, password } = req.body;
   const user = new User({ username, password });
-  user.save((err) => {
-    if (err) {
-      console.error('Failed to create user:', err);
-      res.status(500).json({ error: 'Failed to create user' });
-      return;
-    }
+  try {
+    await user.save();
     res.json({ message: 'User created successfully' });
-  });
+  } catch (err) {
+    console.error('Failed to create user:', err);
+    res.status(500).json({ error: 'Failed to create user' });
+  }
 });
+
 
 // Route pour se connecter en tant qu'utilisateur
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   User.findOne({ username }, (err, user) => {
     if (err) {
-      console.error('Failed to find user:', err);
-      res.status(500).json({ error: 'Failed to find user' });
+      console.error('Utilisateur intouvable:', err);
+      res.status(500).json({ error: 'Utilisateur intouvable' });
       return;
     }
     if (!user) {
-      res.status(401).json({ error: 'Invalid username or password' });
+      res.status(401).json({ error: 'Accès invalides' });
       return;
     }
     bcrypt.compare(password, user.password, (err, result) => {
       if (err || !result) {
-        res.status(401).json({ error: 'Invalid username or password' });
+        res.status(401).json({ error: 'Accès invalides' });
         return;
       }
-      res.json({ message: 'Login successful' });
+      res.json({ message: 'Connection reussie' });
     });
   });
 });
