@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { genSalt, hash } = require("bcrypt");
 
+// Schema de l'utilisateur
 const userSchema = new mongoose.Schema({
   username: 
   {
@@ -19,6 +20,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// Hashage du mot de passe
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
