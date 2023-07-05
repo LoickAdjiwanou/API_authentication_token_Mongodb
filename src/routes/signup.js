@@ -18,13 +18,13 @@ router.post('/', async (req, res) => {
     await user.save();
 
     // Générer un token
-    const token = jwt.sign({ username: user.username }, 'mongoTOken');
+    const token = jwt.sign({ username: user.username }, 'mongoToken');
 
     // Ajout du token au header
     res.header('x-auth-token', token);
 
     // Renvoyer le token dans la réponse
-    res.json({ message: `User ${username} créé !` });
+    res.json({ message: `Utilisateur ${username} créé !` });
     } catch (err) {
       console.error("Failed to create user:", err);
       res.status(500).json({ error: `Failed to create user ==> ${err.message}` });

@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Connexion à MongoDB
-mongoose.connect('mongodb://localhost:27020/api_token', {
+mongoose.connect('mongodb://localhost:27020/db', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
