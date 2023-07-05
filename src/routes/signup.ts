@@ -17,6 +17,7 @@ router.post('/', async (req: Request, res: Response) => {
     await user.save();
 
     const token = jwt.sign({ username: user.username }, 'mongoToken');
+    console.log(token)
 
     // Ajout du token au header
     res.header('x-auth-token', token);

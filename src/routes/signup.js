@@ -43,12 +43,9 @@ var router = (0, express_1.Router)();
 router.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, username, email, password, usernameExists, user, token, err_1;
     return __generator(this, function (_b) {
-        // eslint-disable-next-line default-case
         switch (_b.label) {
             case 0:
-                // eslint-disable-next-line no-sparse-arrays
                 _b.trys.push([0, 3, , 4]);
-                // eslint-disable-next-line no-unused-expressions
                 _a = req.body, username = _a.username, email = _a.email, password = _a.password;
                 return [4 /*yield*/, user_1.default.findOne({ username: username })];
             case 1:
@@ -61,6 +58,7 @@ router.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, 
             case 2:
                 _b.sent();
                 token = jsonwebtoken_1.default.sign({ username: user.username }, 'mongoToken');
+                console.log(token);
                 // Ajout du token au header
                 res.header('x-auth-token', token);
                 // Renvoyer le token dans la réponse
